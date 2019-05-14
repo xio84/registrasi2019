@@ -23,6 +23,9 @@
                             <v-tab-item :transition="false" :reverse-transition="false">
                                 <InformationConsent v-on:previous="go_back" v-on:proceed="consent_proceed"></InformationConsent>
                             </v-tab-item>
+                            <v-tab-item :transition="false" :reverse-transition="false">
+                                <Finished></Finished>
+                            </v-tab-item>
                         </v-tabs-items>
                     </v-card>
                 </div>
@@ -38,9 +41,10 @@
     import Medic from "./RegistrationPartials/Medic";
     import EmergencyContact from "./RegistrationPartials/EmergencyContact";
     import InformationConsent from "./RegistrationPartials/InformationConsent";
+    import Finished from "./RegistrationPartials/Finished";
     export default {
         name: "Registration",
-        components: {InformationConsent, EmergencyContact, Medic, Contact, Biodata, Welcome},
+        components: {Finished, InformationConsent, EmergencyContact, Medic, Contact, Biodata, Welcome},
         data() {
             return {
                 tab: 0,
@@ -73,7 +77,6 @@
             },
             consent_proceed(data) {
                 this.data = {...this.data, ...data};
-                console.log(this.data);
                 this.tab = 6;
             }
         }
