@@ -56,7 +56,7 @@
                 this.$emit('proceed', {
                     name: this.name,
                     nickname: this.nickname,
-                    gender: this.gender,
+                    gender: this.gender.value,
                     birth_place: this.birth_place,
                     birth_date: this.birth_date
                 });

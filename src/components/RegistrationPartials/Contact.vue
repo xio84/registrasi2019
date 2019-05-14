@@ -1,5 +1,5 @@
 <template>
-    <v-form @submit.prevent="proceed">
+    <v-form @submit.prevent="proceed" ref="form">
         <div class="pl-3 pt-4 pr-3 pb-1" align="left">
             <v-btn small flat class="pa-0 ma-0 text-none" color="blue darken-1" @click="$emit('previous')">
                 <v-icon small class="mr-2">arrow_back</v-icon>
@@ -40,6 +40,7 @@
         },
         methods: {
             proceed() {
+                if(!this.$refs.form.validate()) return;
                 this.$emit('proceed', {
                     email: this.email,
                     line: this.line,

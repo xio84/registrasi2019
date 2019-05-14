@@ -1,5 +1,5 @@
 <template>
-    <v-form @submit.prevent="proceed">
+    <v-form @submit.prevent="proceed" ref="form">
         <div class="pl-3 pt-4 pr-3 pb-1" align="left">
             <v-btn small flat class="pa-0 ma-0 text-none" color="blue darken-1" @click="$emit('previous')">
                 <v-icon small class="mr-2">arrow_back</v-icon>
@@ -16,6 +16,7 @@
                     v-model="blood_type"
                     :items="blood_types"
                     label="Golongan Darah"
+                    :rules="validation_rules.blood_type"
             ></v-select>
 
             <v-textarea label="Penyakit atau Riwayat Penyakit" v-model="disease"></v-textarea>
@@ -26,10 +27,13 @@
 </template>
 
 <script>
+    const validation_rules = require('../../validation_rules');
+
     export default {
         name: "Medic",
         data() {
             return {
+                validation_rules: validation_rules,
                 disease: '',
                 blood_type: null,
                 blood_types: ['A', 'B', 'AB', 'O']
@@ -37,6 +41,8 @@
         },
         methods: {
             proceed() {
+                if(!this.$refs.form.validate()) return;
+
                 this.$emit('proceed', {
                     disease: this.disease,
                     blood_type: this.blood_type

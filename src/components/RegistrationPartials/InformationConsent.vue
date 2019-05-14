@@ -35,9 +35,7 @@
         methods: {
             proceed() {
                 this.$emit('proceed', {
-                    guardian_name: this.guardian_name,
-                    guardian_rel: this.guardian_rel,
-                    guardian_mobile: this.guardian_mobile
+                    consent: this.consent
                 });
             }
         }

@@ -21,7 +21,7 @@
                                 <EmergencyContact v-on:previous="go_back" v-on:proceed="ec_proceed"></EmergencyContact>
                             </v-tab-item>
                             <v-tab-item :transition="false" :reverse-transition="false">
-                                <InformationConsent v-on:previous="go_back" v-on:proceed="ec_proceed"></InformationConsent>
+                                <InformationConsent v-on:previous="go_back" v-on:proceed="consent_proceed"></InformationConsent>
                             </v-tab-item>
                         </v-tabs-items>
                     </v-card>
@@ -43,7 +43,8 @@
         components: {InformationConsent, EmergencyContact, Medic, Contact, Biodata, Welcome},
         data() {
             return {
-                tab: 0
+                tab: 0,
+                data: {}
             }
         },
         methods: {
@@ -51,19 +52,29 @@
                 if(this.tab > 0) this.tab--;
             },
             welcome_proceed(data) {
+                this.data = {...this.data, ...data};
                 this.tab = 1;
             },
             biodata_proceed(data) {
+                this.data = {...this.data, ...data};
                 this.tab = 2;
             },
             contact_proceed(data) {
+                this.data = {...this.data, ...data};
                 this.tab = 3;
             },
             medic_proceed(data) {
+                this.data = {...this.data, ...data};
                 this.tab = 4;
             },
             ec_proceed(data) {
+                this.data = {...this.data, ...data};
                 this.tab = 5;
+            },
+            consent_proceed(data) {
+                this.data = {...this.data, ...data};
+                console.log(this.data);
+                this.tab = 6;
             }
         }
     }
