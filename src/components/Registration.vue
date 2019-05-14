@@ -42,13 +42,20 @@
     import EmergencyContact from "./RegistrationPartials/EmergencyContact";
     import InformationConsent from "./RegistrationPartials/InformationConsent";
     import Finished from "./RegistrationPartials/Finished";
+
+    const gform_mapping = require('../gform_mapping').mapping;
+    const gform_url = require('../gform_mapping').URL;
+
+    const $ = require('jquery');
+
     export default {
         name: "Registration",
         components: {Finished, InformationConsent, EmergencyContact, Medic, Contact, Biodata, Welcome},
         data() {
             return {
                 tab: 0,
-                data: {}
+                data: {},
+                submitting: false
             }
         },
         methods: {
@@ -77,7 +84,47 @@
             },
             consent_proceed(data) {
                 this.data = {...this.data, ...data};
-                this.tab = 6;
+
+                // Prepare form submission
+                let submit = {};
+
+                // Map fields to gform assignments
+                for(let key in data) {
+                    if(gform_mapping[key]) submit[gform_mapping[key]] = data[key];
+                    else submit[key] = data[key];
+                }
+
+                // Submit form
+                this.submitting = true;
+                let self = this;
+                $.ajax({
+                    contentType: 'application/json',
+                    data: submit,
+                    //dataType: 'json',
+                    type: 'POST',
+                    url: gform_url
+                }).done(function(data) {
+                    // Success!
+                    console.log(data);
+                    this.tab = 6;
+                }).fail(function(jqXHR) {
+                    self.submitting = false;
+                    this.tab = 5;
+
+                    /*if (jqXHR.readyState === 4) {
+                        // HTTP error
+                        let error = (jqXHR.responseJSON) ? jqXHR.responseJSON.error : "Something went wrong";
+                        self.show_snackbar(error, 'error');
+                    } else if (jqXHR.readyState === 0) {
+                        // Network error
+                        let error = "We can't connect to our server, please check your internet connection";
+                        self.show_snackbar(error, 'error');
+                    } else {
+                        // something weird is happening
+                        let error = "Something went wrong";
+                        self.show_snackbar(error, 'error');
+                    }*/
+                });
             }
         }
     }
