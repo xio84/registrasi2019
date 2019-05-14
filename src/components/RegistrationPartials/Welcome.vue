@@ -1,5 +1,5 @@
 <template>
-    <v-form @submit.prevent="proceed">
+    <v-form @submit.prevent="proceed" ref="form">
         <div class="pa-4" align="left">
             <v-img :src="require('../../assets/spartalogo.png')" width="80"></v-img>
             <div class="display-1 font-weight-bold" style="margin-top: 24px">Selamat datang!</div>
@@ -10,7 +10,7 @@
                 Nah, kami ingin mengenal kamu lebih jauh, pertama-tama, silakan kamu masukkan NIM kamu di bawah ini.
             </p>
 
-            <v-text-field label="NIM TPB" v-model="nim" class="mt-4"></v-text-field>
+            <v-text-field label="NIM TPB" v-model="nim" :rules="validation_rules.nim" class="mt-4"></v-text-field>
 
             <v-btn ma-0 depressed block style="text-transform: none; color: black" color="primary" class="font-weight-bold" type="submit">Lanjutkan</v-btn>
         </div>
@@ -18,15 +18,19 @@
 </template>
 
 <script>
+    const validation_rules = require('../../validation_rules');
+
     export default {
         name: "Welcome",
         data() {
             return {
                 nim: '',
+                validation_rules: validation_rules
             }
         },
         methods: {
             proceed() {
+                if(!this.$refs.form.validate()) return;
                 this.$emit('proceed', {nim: this.nim});
             }
         }

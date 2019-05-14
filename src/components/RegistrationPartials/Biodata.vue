@@ -1,5 +1,5 @@
 <template>
-    <v-form @submit.prevent="proceed">
+    <v-form @submit.prevent="proceed" ref="form">
         <div class="pl-3 pt-4 pr-3 pb-1" align="left">
             <v-btn small flat class="pa-0 ma-0 text-none" color="blue darken-1" @click="$emit('previous')">
                 <v-icon small class="mr-2">arrow_back</v-icon>
@@ -12,18 +12,19 @@
             </div>
             <p class="mt-1 grey--text text--darken-1">Isi data diri kamu dengan jujur ya..</p>
 
-            <v-text-field label="Nama Lengkap" v-model="name" hint="Tulis dengan huruf kapital di awal kata dan kapitalisasi yang sesuai"></v-text-field>
-            <v-text-field label="Nama Panggilan" v-model="nickname"></v-text-field>
+            <v-text-field label="Nama Lengkap" v-model="name" :rules="validation_rules.name" hint="Tulis dengan huruf kapital di awal kata dan kapitalisasi yang sesuai"></v-text-field>
+            <v-text-field label="Nama Panggilan" v-model="nickname" :rules="validation_rules.name"></v-text-field>
             <v-select
                     v-model="gender"
                     :items="genders"
+                    :rules="validation_rules.gender"
                     item-text="text"
                     item-value="value"
                     label="Jenis Kelamin"
                     return-object
             ></v-select>
-            <v-text-field label="Tempat Lahir" v-model="birth_place"></v-text-field>
-            <v-text-field label="Tanggal Lahir" v-model="birth_date" mask="##/##/####" placeholder="dd/mm/yyyy"></v-text-field>
+            <v-text-field label="Tempat Lahir" :rules="validation_rules.bp" v-model="birth_place"></v-text-field>
+            <v-text-field label="Tanggal Lahir" :rules="validation_rules.bd" v-model="birth_date" mask="##/##/####" placeholder="dd/mm/yyyy"></v-text-field>
 
             <v-btn depressed block style="text-transform: none; color: black" color="primary" class="font-weight-bold mt-3" :loading="loading" type="submit">Lanjutkan</v-btn>
         </div>
@@ -31,10 +32,12 @@
 </template>
 
 <script>
+    const validation_rules = require('../../validation_rules');
     export default {
         name: "Biodata",
         data() {
             return {
+                validation_rules: validation_rules,
                 name: '',
                 nickname: '',
                 gender: null,
@@ -49,6 +52,7 @@
         },
         methods: {
             proceed() {
+                if(!this.$refs.form.validate()) return;
                 this.$emit('proceed', {
                     name: this.name,
                     nickname: this.nickname,

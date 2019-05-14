@@ -12,11 +12,11 @@
             </div>
             <p class="mt-1 grey--text text--darken-1">Isi data diri kamu dengan jujur ya..</p>
 
-            <v-text-field label="Alamat email" v-model="email"></v-text-field>
-            <v-text-field label="ID LINE" v-model="line"></v-text-field>
-            <v-text-field label="Nomor ponsel" v-model="mobile"></v-text-field>
-            <v-text-field label="Alamat Rumah" v-model="address_home"></v-text-field>
-            <v-text-field label="Alamat di Bandung" v-model="address_local"></v-text-field>
+            <v-text-field label="Alamat email" :rules="validation_rules.email" v-model="email"></v-text-field>
+            <v-text-field label="ID LINE" :rules="validation_rules.line_id" v-model="line"></v-text-field>
+            <v-text-field label="Nomor ponsel" :rules="validation_rules.mobile" v-model="mobile"></v-text-field>
+            <v-text-field label="Alamat Rumah" :rules="validation_rules.address" v-model="address_home"></v-text-field>
+            <v-text-field label="Alamat di Bandung" :rules="validation_rules.address" v-model="address_local"></v-text-field>
 
             <v-btn depressed block style="text-transform: none; color: black" color="primary" class="font-weight-bold mt-3" type="submit">Lanjutkan</v-btn>
         </div>
@@ -24,10 +24,13 @@
 </template>
 
 <script>
+    const validation_rules = require('../../validation_rules');
+
     export default {
         name: "Contact",
         data() {
             return {
+                validation_rules: validation_rules,
                 email: '',
                 line: '',
                 mobile: '',
