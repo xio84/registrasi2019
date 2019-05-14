@@ -1,0 +1,51 @@
+<template>
+    <v-form @submit.prevent="proceed">
+        <div class="pl-3 pt-4 pr-3 pb-1" align="left">
+            <v-btn small flat class="pa-0 ma-0 text-none" color="blue darken-1" @click="$emit('previous')">
+                <v-icon small class="mr-2">arrow_back</v-icon>
+                Kembali
+            </v-btn>
+        </div>
+        <div class="pl-4 pr-4 pt-1 pb-4" align="left">
+            <div>
+                <span class="headline font-weight-bold">Informasi kondisi medik</span> <span class="grey--text ml-2">3/5</span>
+            </div>
+            <p class="mt-1 grey--text text--darken-1">Kami perlu informasi ini agar kamu aman saat keberjalanan SPARTA</p>
+
+            <v-select
+                    v-model="blood_type"
+                    :items="blood_types"
+                    label="Golongan Darah"
+            ></v-select>
+
+            <v-textarea label="Penyakit atau Riwayat Penyakit" v-model="disease"></v-textarea>
+
+            <v-btn depressed block style="text-transform: none; color: black" color="primary" class="font-weight-bold mt-3" type="submit">Lanjutkan</v-btn>
+        </div>
+    </v-form>
+</template>
+
+<script>
+    export default {
+        name: "Medic",
+        data() {
+            return {
+                disease: '',
+                blood_type: null,
+                blood_types: ['A', 'B', 'AB', 'O']
+            }
+        },
+        methods: {
+            proceed() {
+                this.$emit('proceed', {
+                    disease: this.disease,
+                    blood_type: this.blood_type
+                });
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

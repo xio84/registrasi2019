@@ -1,0 +1,38 @@
+<template>
+    <v-form @submit.prevent="proceed">
+        <div class="pa-4" align="left">
+            <v-img :src="require('../../assets/spartalogo.png')" width="80"></v-img>
+            <div class="display-1 font-weight-bold" style="margin-top: 24px">Selamat datang!</div>
+            <p class="mt-3">
+                Kami ucapkan selamat dan sukses untuk kalian yang diterima pada program studi Teknik Informatika dan Sistem dan Teknologi Informasi angkatan 2018!
+            </p>
+            <p>
+                Nah, kami ingin mengenal kamu lebih jauh, pertama-tama, silakan kamu masukkan NIM kamu di bawah ini.
+            </p>
+
+            <v-text-field label="NIM TPB" v-model="nim" class="mt-4"></v-text-field>
+
+            <v-btn ma-0 depressed block style="text-transform: none; color: black" color="primary" class="font-weight-bold" type="submit">Lanjutkan</v-btn>
+        </div>
+    </v-form>
+</template>
+
+<script>
+    export default {
+        name: "Welcome",
+        data() {
+            return {
+                nim: '',
+            }
+        },
+        methods: {
+            proceed() {
+                this.$emit('proceed', {nim: this.nim});
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
