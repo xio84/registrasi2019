@@ -22,4 +22,4 @@ module.exports.mapping = {
     consent: 'entry.966721870'
 };
 
-module.exports.URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc7a6aNcUI4oAAbZJ7y0ZYhUrMbM8NTkE2sPbfz8QyrsY0rYg/formResponse';
+module.exports.URL = 'https://script.google.com/macros/s/AKfycbyEWNNhYVo2FEvQ3DpbjMXkdfWLS-41zkXvrSkyotjHTdueim0-/exec'; //https://docs.google.com/forms/d/e/1FAIpQLSc7a6aNcUI4oAAbZJ7y0ZYhUrMbM8NTkE2sPbfz8QyrsY0rYg/formResponse';

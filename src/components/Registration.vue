@@ -95,8 +95,12 @@
                 }
 
                 // Submit form
+                console.log(JSON.stringify(this.data));
+
                 this.submitting = true;
-                let self = this;
+                this.tab = 6;
+
+                /*let self = this;
                 $.ajax({
                     contentType: 'application/json',
                     data: submit,
@@ -110,21 +114,7 @@
                 }).fail(function(jqXHR) {
                     self.submitting = false;
                     this.tab = 5;
-
-                    /*if (jqXHR.readyState === 4) {
-                        // HTTP error
-                        let error = (jqXHR.responseJSON) ? jqXHR.responseJSON.error : "Something went wrong";
-                        self.show_snackbar(error, 'error');
-                    } else if (jqXHR.readyState === 0) {
-                        // Network error
-                        let error = "We can't connect to our server, please check your internet connection";
-                        self.show_snackbar(error, 'error');
-                    } else {
-                        // something weird is happening
-                        let error = "Something went wrong";
-                        self.show_snackbar(error, 'error');
-                    }*/
-                });
+                });*/
             }
         }
     }
