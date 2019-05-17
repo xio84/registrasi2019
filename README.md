@@ -1,5 +1,17 @@
 # registrasi19
 
+For Backend:
+
+open cmd:
+venv\Scripts\activate.bat
+cd spartaregis
+py manage.py runserver
+
+open chrome:
+go to http://127.0.0.1:8000/api/students
+
+For Frontend:
+
 ## Project setup
 ```
 npm install
